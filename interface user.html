@@ -6,7 +6,7 @@
     <style>
         body { font-family: sans-serif; margin: 40px; background: #f4f4f4; }
         form { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; background: white; }
+        table { width: 100%; border-collapse: collapse; background: rgb(255, 255, 255); }
         th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
     </style>
 </head>
@@ -18,13 +18,20 @@
         <input type="text" name="prenom" placeholder="Prénom" required>
         <input type="number" name="age" placeholder="Âge">
         <input type="text" name="quartier" placeholder="Quartier">
+        <input type="text" name="ville" placeholder="ville">
+        <input type="text" name="region" placeholder="region">
         <button type="submit">Enregistrer</button>
     </form>
 
     <h2>Liste des habitants</h2>
     <table>
         <tr>
-            <th>Nom</th> <th>Prénom</th> <th>Âge</th> <th>Quartier</th>
+            <th>Nom</th>
+             <th>Prénom</th>
+              <th>Âge</th>
+               <th>Quartier</th>
+               <th>ville</th>
+               <>Région</th>
         </tr>
         {% for h in habitants %}
         <tr>
