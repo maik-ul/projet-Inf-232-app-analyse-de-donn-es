@@ -1,14 +1,15 @@
 from flask import Flask, render_template, request, redirect
-import sqlite3
+import psycopg2
 import os
+
 
 app = Flask(__name__)
 
 # Configuration de la base de données
-DB_PATH = 'recensement.db'
-
+DATABASE_URL=os.environ.get ('DATABASE_URL')
+ 
 def init_db():
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS citoyens (
@@ -27,7 +28,7 @@ def init_db():
 @app.route('/')
 def index():
     return  render_template('interface user.html')
-    conn = sqlite3.connect(DB_PATH)
+    conn = psycopg2.connect(DATABASE_URL)
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM citoyens')
     habitants = cursor.fetchall()
@@ -44,7 +45,7 @@ def ajouter():
     Region= request.form.get(('region'))
 
     if nom and prenom:
-        conn = sqlite3.connect(DB_PATH)
+        conn = psycopg2.connect(DATABASE_URL)
         cursor = conn.cursor()
         cursor.execute('INSERT INTO citoyens (nom, prenom, age, ville,Departement,Région) VALUES (?, ?, ?, ?,?,?)',
                        (nom, prenom, age, ville, Departement, Region))
