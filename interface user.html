@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Recensement  des population par Localité</title>
+    <style>
+        body { font-family: sans-serif; margin: 40px; background: #f4f4f4; }
+        form { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; background: white; }
+        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+    </style>
+</head>
+<body>
+    <h1>Recensement de la Population</h1>
+    
+    <form action="/ajouter" method="POST">
+        <input type="text" name="nom" placeholder="Nom" required>
+        <input type="text" name="prenom" placeholder="Prénom" required>
+        <input type="number" name="age" placeholder="Âge">
+        <input type="text" name="quartier" placeholder="Quartier">
+        <button type="submit">Enregistrer</button>
+    </form>
+
+    <h2>Liste des habitants</h2>
+    <table>
+        <tr>
+            <th>Nom</th> <th>Prénom</th> <th>Âge</th> <th>Quartier</th>
+        </tr>
+        {% for h in habitants %}
+        <tr>
+            <td>{{ h[1] }}</td> <td>{{ h[2] }}</td> <td>{{ h[3] }}</td> <td>{{ h[4] }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
