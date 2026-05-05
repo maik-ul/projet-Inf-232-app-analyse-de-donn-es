@@ -1,43 +1,216 @@
 <!DOCTYPE html>
 <html lang="fr">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Recensement  des population par Localité</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recensement De la population <param name="" value=""> Localité</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        body { font-family: sans-serif; margin: 40px; background: #f4f4f4; }
-        form { background: white; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
-        table { width: 100%; border-collapse: collapse; background: rgb(255, 255, 255); }
-        th, td { padding: 10px; border: 1px solid #ddd; text-align: left; }
+        :root {
+            --primary-color: #4facfe;
+            --secondary-color: #00f2fe;
+            --dark-blue: #2c3e50;
+            --light-bg: #f8f9fa;
+            --white: #ffffff;
+            --text-gray: #555;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--dark-blue);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        header p {
+            opacity: 0.9;
+            font-weight: 300;
+        }
+
+        /* Style du Formulaire */
+        .card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .card h2 {
+            margin-bottom: 20px;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 10px;
+        }
+
+        .form-group-inline {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        button {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+            display: block;
+            width: 100%;
+        }
+
+        button:hover {
+            background: #3a91d8;
+            transform: translateY(-2px);
+        }
+
+        /* Style du Tableau */
+        .table-container {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        th {
+            background-color: #f1f3f5;
+            color: var(--dark-blue);
+            text-align: left;
+            padding: 15px;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            color: var(--text-gray);
+        }
+
+        tr:hover {
+            background-color: #fcfcfc;
+        }
+
+        .badge-quartier {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.8rem; }
+            .card { padding: 20px; }
+        }
     </style>
 </head>
 <body>
-    <h1>Recensement de la Population</h1>
-    
-    <form action="/ajouter" method="POST">
-        <input type="text" name="nom" placeholder="Nom" required>
-        <input type="text" name="prenom" placeholder="Prénom" required>
-        <input type="number" name="age" placeholder="Âge">
-        <input type="text" name="quartier" placeholder="Quartier">
-        <input type="text" name="ville" placeholder="ville">
-        <input type="text" name="region" placeholder="region">
-        <button type="submit">Enregistrer</button>
-    </form>
 
-    <h2>Liste des habitants</h2>
-    <table>
-        <tr>
-            <th>Nom</th>
-             <th>Prénom</th>
-              <th>Âge</th>
-               <th>Quartier</th>
-               <th>ville</th>
-               <th>Région</th>
-        </tr>
-        {% for h in habitants %}
-        <tr>
-            <td>{{ h[1] }}</td> <td>{{ h[2] }}</td> <td>{{ h[3] }}</td> <td>{{ h[4] }}</td>
-        </tr>
-        {% endfor %}
-    </table>
+    <div class="container">
+        <header>
+            <h1>Recensement de la population par Localité</h1>
+            <p>Système digital de gestion de la population</p>
+        </header>
+
+        <div class="card">
+            <h2>Nouvel Enregistrement</h2>
+            <form action="/ajouter" method="POST">
+                <div class="form-group-inline">
+                    <input type="text" name="nom" placeholder="Nom de famille" required>
+                    <input type="text" name="prenom" placeholder="Prénoms" required>
+                </div>
+                <div class="form-group-inline">
+                    <input type="number" name="age" placeholder="Âge" min="0">
+                    <input type="text" name="ville" placeholder="ville de résidence">
+                    <input type="text" name="Départemant" placeholder="département de résidence">
+                    <input type="text" name="Région" placeholder="Région">
+                </div>
+                <button type="submit">Enregistrer le citoyen</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Habitants Recensés</h2>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nom</th>
+                            <th>Prénom</th>
+                            <th>Âge</th>
+                            <th>ville</th>
+                            <th>Département</th>
+                            <th>Région</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for h in habitants %}
+                        <tr>
+                            <td>#{{ h[0] }}</td>
+                            <td><strong>{{ h[1]|upper }}</strong></td>
+                            <td>{{ h[2] }}</td>
+                            <td>{{ h[3] }} ans</td>
+                            <td><span class="badge-quartier">{{ h[4] }}</span></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>
+    
