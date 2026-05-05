@@ -16,7 +16,9 @@ def init_db():
             nom TEXT NOT NULL,
             prenom TEXT NOT NULL,
             age INTEGER,
-            quartier TEXT
+            ville TEXT
+            Departement TEXT
+             Region TEXT             
         )
     ''')
     conn.commit()
@@ -30,20 +32,22 @@ def index():
     cursor.execute('SELECT * FROM citoyens')
     habitants = cursor.fetchall()
     conn.close()
-    return render_template('index.html', habitants=habitants)
+    return render_template('interface user.html', habitants=habitants)
 
 @app.route('/ajouter', methods=['POST'])
 def ajouter():
     nom = request.form.get('nom')
     prenom = request.form.get('prenom')
     age = request.form.get('age')
-    quartier = request.form.get('quartier')
+    ville = request.form.get('ville')
+    Departement = request.form.get('Département')
+    Region= request.form.get(('region'))
 
     if nom and prenom:
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
-        cursor.execute('INSERT INTO citoyens (nom, prenom, age, quartier) VALUES (?, ?, ?, ?)',
-                       (nom, prenom, age, quartier))
+        cursor.execute('INSERT INTO citoyens (nom, prenom, age, ville,Departement,Région) VALUES (?, ?, ?, ?,?,?)',
+                       (nom, prenom, age, ville, Departement, Region))
         conn.commit()
         conn.close()
     
